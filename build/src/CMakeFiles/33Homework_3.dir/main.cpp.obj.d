@@ -149,4 +149,5 @@ src/CMakeFiles/33Homework_3.dir/main.cpp.obj: \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/stl_vector.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/stl_bvector.h \
  C:/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/c++/bits/vector.tcc \
+ C:/Users/yodji/Desktop/33Homework_3/include/structures.h \
  C:/Users/yodji/Desktop/33Homework_3/include/trable_shooting.h

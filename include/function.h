@@ -59,18 +59,17 @@ void interface() {
         switch(type_user_input) {
             case STRING_INT: {
                 Registry<std::string, int> registry;
-                std::string name("0");
-                int age(0);
+                std::string key("0");
+                int value(0);
                 
                 do {   
                     switch (working_with_data()) {
                         case ADD: {
                         std::cout << "Start entering data in the selected type: " << std::endl;
                         do {
-                            std::cout << "\t-Name "; std::cin >> name;
-                            std::cout << "\t-Age "; std::cin >> age;
-                            registry.setKey(name);  registry.setVolume(age);
-                            reg<std::string, int>.push_back(registry);
+                            std::cout << "\t-Key "; std::cin >> key;
+                            std::cout << "\t-Value "; std::cin >> value;
+                            registry.setAddData(key, value);
                             std::cout << "To complete, enter stop, or go to continue.";
                             std::cin >> answer;
                             std::cout << "\n";
@@ -78,23 +77,10 @@ void interface() {
                         break;
                     }
                         case REMOVE: {
-                        if (!reg<std::string, int>.empty()) {
+                        if (!registry.getEmptyVec()) {
                             std::cout << "Enter the key for which you want to delete all data: " << std::endl;
-                            std::cin >> name;
-                            int count(0);
-                            for(auto it = reg<std::string, int>.begin(); it != reg<std::string, int>.end();) {
-                                if (it->getKey() == name) {
-                                    std::cout << "\t-Element \"" << it->getKey() << " : " << it->getVolume() << "\" is removed.\n";
-                                    it = reg<std::string, int>.erase(it);
-                                    count++;
-                                }
-                                else {
-                                    it++;
-                                }   
-                            }
-                            if(count == 0) {
-                                std::cout << "Key \"" << name << "\" is not found.\n";
-                            }
+                            std::cin >> key;
+                            registry.setRemoveData(key);
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -103,11 +89,9 @@ void interface() {
                         break;
                     }
                         case PRINT: {
-                        if(!reg<std::string, int>.empty()) {
+                        if(!registry.getEmptyVec()) {
                             std::cout << "Currently stored files in the database:" << std::endl;
-                            for(auto it = reg<std::string, int>.begin(); it != reg<std::string, int>.end(); it++) {
-                                std::cout << "\t-Name " << it->getKey() << " \tAge " << it->getVolume() << std::endl;
-                            }
+                            registry.getPrintData();
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -116,21 +100,11 @@ void interface() {
                         break;
                     }
                         case FIND: {
-                            if(!reg<std::string, int>.empty()) {
-                                std::string name("0");
+                            if(!registry.getEmptyVec()) {
                                 std::cout << "Enter the key to search for all its values: " << std::endl;
-                                std::cin >> name;
+                                std::cin >> key;
                                 std::cout << std::endl;
-                                int count(0);
-                                for(auto it = reg<std::string, int>.begin(); it != reg<std::string, int>.end(); it++) {
-                                    if(it->getKey() == name) {
-                                        count++;
-                                        std::cout << "\t-Name " << it->getKey() << "\tAge " << it->getVolume() << std::endl;;
-                                    }
-                                }
-                                if(count == 0) {
-                                    std::cout << "Key \"" << name << "\" is not found.\n"; 
-                                }
+                                registry.getFindData(key);
                                 std::cout << "\n";
                                 break;
                             }
@@ -150,18 +124,17 @@ void interface() {
             }
             case INT_STRING: {
                 Registry<int, std::string> registry;
-                int age(0);
-                std::string name("0");
+                int key(0);
+                std::string value("0");
                 
                 do{   
                     switch (working_with_data()) {
                         case ADD: {
                             std::cout << "Start entering data in the selected type: " << std::endl;
                             do {
-                                std::cout << "\t-Age "; std::cin >> age;
-                                std::cout << "\t-Name "; std::cin >> name;
-                                registry.setKey(age);  registry.setVolume(name);
-                                reg<int, std::string>.push_back(registry);
+                                std::cout << "\t-Age "; std::cin >> key;
+                                std::cout << "\t-Name "; std::cin >> value;
+                                registry.setAddData(key, value);
                                 std::cout << "To complete, enter stop, or go to continue.";
                                 std::cin >> answer;
                                 std::cout << "\n";
@@ -169,23 +142,10 @@ void interface() {
                             break;
                         }
                         case REMOVE: {
-                            if (!reg<int, std::string>.empty()) {
+                            if (!registry.getEmptyVec()) {
                                 std::cout << "Enter the key for which you want to delete all data: " << std::endl;
-                                std::cin >> age;
-                                int count(0);
-                                for(auto it = reg<int, std::string>.begin(); it != reg<int, std::string>.end();) {
-                                    if (it->getKey() == age) {
-                                        std::cout << "\t-Element \"" << it->getKey() << " : " << it->getVolume() << "\" is removed.\n";
-                                        it = reg<int, std::string>.erase(it);
-                                        count++;
-                                    }
-                                    else {
-                                        it++;
-                                    }   
-                                }
-                                if(count == 0) {
-                                    std::cout << "Key \"" << age << "\" is not found.\n";
-                                }
+                                std::cin >> key;
+                                registry.setRemoveData(key);
                             }
                             else {
                                 std::cout << "Database is empty!" << std::endl;
@@ -194,11 +154,9 @@ void interface() {
                             break;
                         }
                         case PRINT: {
-                            if(!reg<int, std::string>.empty()) {
+                            if(!registry.getEmptyVec()) {
                                 std::cout << "Currently stored files in the database:" << std::endl;
-                                for(auto it = reg<int, std::string>.begin(); it != reg<int, std::string>.end(); it++) {
-                                    std::cout << "\t-Age " << it->getKey() << " \tName " << it->getVolume() << std::endl;
-                                }
+                                registry.getPrintData();
                             }
                             else {
                                 std::cout << "Database is empty!" << std::endl;
@@ -207,23 +165,11 @@ void interface() {
                             break;
                         }
                         case FIND: {
-                            if(!reg<int, std::string>.empty()){
-                                int age(0);
+                            if(!registry.getEmptyVec()){
                                 std::cout << "Enter the key to search for all its values: " << std::endl;
-                                std::cin >> age;
+                                std::cin >> key;
                                 std::cout << std::endl;
-                                int count(0);
-                                for(auto it = reg<int, std::string>.begin(); it != reg<int, std::string>.end(); it++) {
-                                    if(it->getKey() == age) {
-                                        count++;
-                                        std::cout << "\t-Age " << it->getKey() << " \tName " << it->getVolume();
-                                    }
-                                }
-                                if(count == 0) {
-                                    std::cout << "Key \"" << age << "\" is not found.\n"; 
-                                }
-                                std::cout << "\n";
-                                break;
+                                registry.getFindData(key);
                             }
                             else {
                                 std::cout << "Database is empty!\n" << std::endl;
@@ -241,18 +187,17 @@ void interface() {
             }
             case STRING_DOUBLE: {
                 Registry<std::string, double> registry;
-                double age(0);
-                std::string name("0");
+                std::string key("0");
+                double value(0);
                 
                 do{   
                     switch (working_with_data()) {
                         case ADD: {
                         std::cout << "Start entering data in the selected type: " << std::endl;
                         do {
-                            std::cout << "\t-Name "; std::cin >> name;
-                            std::cout << "\t-Age "; std::cin >> age;
-                            registry.setKey(name);  registry.setVolume(age);
-                            reg<std::string, double>.push_back(registry);
+                            std::cout << "\t-Key "; std::cin >> key;
+                            std::cout << "\t-Value "; std::cin >> value;
+                            registry.setAddData(key, value);
                             std::cout << "To complete, enter stop, or go to continue.";
                             std::cin >> answer;
                             std::cout << "\n";
@@ -260,23 +205,10 @@ void interface() {
                         break;
                         }
                         case REMOVE: {
-                        if (!reg<std::string, double>.empty()) {
+                        if (!registry.getEmptyVec()) {
                             std::cout << "Enter the key for which you want to delete all data: " << std::endl;
-                            std::cin >> name;
-                            int count(0);
-                            for(auto it = reg<std::string, double>.begin(); it != reg<std::string, double>.end();) {
-                                if (it->getKey() == name) {
-                                    std::cout << "\t-Element \"" << it->getKey() << " : " << it->getVolume() << "\" is removed.\n";
-                                    it = reg<std::string, double>.erase(it);
-                                    count++;
-                                }
-                                else {
-                                    it++;
-                                }   
-                            }
-                            if(count == 0) {
-                                std::cout << "Key \"" << name << "\" is not found.\n";
-                            }
+                            std::cin >> key;
+                            registry.setRemoveData(key);
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -285,11 +217,9 @@ void interface() {
                         break;
                     }
                         case PRINT: {
-                        if(!reg<std::string, double>.empty()) {
+                        if(!registry.getEmptyVec()) {
                             std::cout << "Currently stored files in the database:" << std::endl;
-                            for(auto it = reg<std::string, double>.begin(); it != reg<std::string, double>.end(); it++) {
-                                std::cout << "\t-Name " << it->getKey() << " \tAge " << it->getVolume() << std::endl;
-                            }
+                            registry.getPrintData();
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -298,23 +228,11 @@ void interface() {
                         break;
                     }
                         case FIND: {
-                            if(!reg<std::string, double>.empty()) {
-                                int age(0);
+                            if(!registry.getEmptyVec()) {
                                 std::cout << "Enter the key to search for all its values: " << std::endl;
-                                std::cin >> name;
+                                std::cin >> key;
                                 std::cout << std::endl;
-                                int count(0);
-                                for(auto it = reg<std::string, double>.begin(); it != reg<std::string, double>.end(); it++) {
-                                    if(it->getKey() == name) {
-                                        std::cout << "\t-Name " << it->getKey() << " \tAge " << it->getVolume();
-                                        count++;
-                                    }
-                                }
-                                if(count == 0) {
-                                    std::cout << "Key \"" << name << "\" is not found.\n"; 
-                                }
-                                std::cout << "\n";
-                                break;
+                                registry.getFindData(key);
                             }
                             else {
                                 std::cout << "Database is empty!\n" << std::endl;
@@ -332,17 +250,16 @@ void interface() {
             }
             case STRING_STRING: {
                 Registry<std::string, std::string> registry;
-                std::string name("0"), age("0");
+                std::string key("0"), value("0");
                 
                 do{   
                     switch (working_with_data()) {
                         case ADD: {
                         std::cout << "Start entering data in the selected type: " << std::endl;
                         do {
-                            std::cout << "\t-Name "; std::cin >> name;
-                            std::cout << "\t-Age "; std::cin >> age;
-                            registry.setKey(name);  registry.setVolume(age);
-                            reg<std::string, std::string>.push_back(registry);
+                            std::cout << "\t-Key "; std::cin >> key;
+                            std::cout << "\t-Value "; std::cin >> value;
+                            registry.setAddData(key, value);
                             std::cout << "To complete, enter stop, or go to continue.";
                             std::cin >> answer;
                             std::cout << "\n";
@@ -350,23 +267,10 @@ void interface() {
                         break;
                         }
                         case REMOVE: {
-                        if (!reg<std::string, std::string>.empty()) {
+                        if (!registry.getEmptyVec()) {
                             std::cout << "Enter the key for which you want to delete all data: " << std::endl;
-                            std::cin >> name;
-                            int count(0);
-                            for(auto it = reg<std::string, std::string>.begin(); it != reg<std::string, std::string>.end();) {
-                                if (it->getKey() == name) {
-                                    std::cout << "\t-Element \"" << it->getKey() << " : " << it->getVolume() << "\" is removed.\n";
-                                    it = reg<std::string, std::string>.erase(it);
-                                    count++;
-                                }
-                                else {
-                                    it++;
-                                }   
-                            }
-                            if(count == 0) {
-                                std::cout << "Key \"" << name << "\" is not found.\n";
-                            }
+                            std::cin >> key;
+                            registry.setRemoveData(key);
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -375,11 +279,9 @@ void interface() {
                         break;
                     }
                         case PRINT: {
-                        if(!reg<std::string, std::string>.empty()) {
+                        if(!registry.getEmptyVec()) {
                             std::cout << "Currently stored files in the database:" << std::endl;
-                            for(auto it = reg<std::string, std::string>.begin(); it != reg<std::string, std::string>.end(); it++) {
-                                std::cout << "\t-Name " << it->getKey() << " \tAge " << it->getVolume() << std::endl;
-                            }
+                            registry.getPrintData();
                         }
                         else {
                             std::cout << "Database is empty!" << std::endl;
@@ -388,23 +290,11 @@ void interface() {
                         break;
                     }
                         case FIND: {
-                            if(!reg<std::string, std::string>.empty()) {
-                                std::string name("0");
+                            if(!registry.getEmptyVec()) {
                                 std::cout << "Enter the key to search for all its values: " << std::endl;
-                                std::cin >> name;
+                                std::cin >> key;
                                 std::cout << std::endl;
-                                int count(0);
-                                for(auto it = reg<std::string, std::string>.begin(); it != reg<std::string, std::string>.end(); it++) {
-                                    if(it->getKey() == name) {
-                                        std::cout << "\t-Name " << it->getKey() << " \tAge " << it->getVolume() << std::endl;;
-                                        count++;
-                                    }
-                                }
-                                if(count == 0) {
-                                    std::cout << "Key \"" << name << "\" is not found.\n"; 
-                                }
-                                std::cout << "\n";
-                                break;
+                                registry.getFindData(key);
                             }
                             else {
                                 std::cout << "Database is empty!\n" << std::endl;

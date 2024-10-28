@@ -2,32 +2,101 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
-
+#include "structures.h"
 
 template<typename TypeKey, typename TypeVolume>
 class Registry {
-    TypeKey key;
-    TypeVolume volume;
+    DataBase<TypeKey, TypeVolume> dataBase;
+    std::vector<DataBase<TypeKey, TypeVolume>> reg;
+    
 public:
-    Registry(){};
-    Registry(TypeKey key, TypeVolume volume) : key(key), volume(volume) {};
+    
+    bool getEmptyVec() {
+        return reg.empty();
+    }
+    
+    
+    void setAddData(TypeKey _key, TypeVolume _volume) {
+        dataBase.setKey(_key);
+        dataBase.setVolume(_volume);
+        reg.push_back(dataBase);
+    }
 
-    void setKey(TypeKey _key) {
-        this->key = _key;
-    }
-    void setVolume(TypeVolume _volume) {
-        this->volume = _volume;
+    void setRemoveData(TypeKey _key) {
+        int count(0);
+        for(auto it = reg.begin(); it != reg.end();) {
+            if (it->getKey() == _key) {
+                std::cout << "\t-Element \"" << it->getKey() << " : " << it->getVolume() << "\" is removed.\n";
+                it = reg.erase(it);
+                count++;
+            }
+            else {
+                it++;
+            }   
+        }
+        if(count == 0) {
+            std::cout << "Key \"" << _key << "\" is not found.\n";
+        }
     }
 
-    TypeKey getKey() {
-        return this->key;
+    void getPrintData() {
+        for(auto it = reg.begin(); it != reg.end(); it++) {
+            std::cout << "\t-Key " << it->getKey() << " \tValue " << it->getVolume() << std::endl;
+        }
     }
-    TypeVolume getVolume() {
-        return this->volume;
+
+    void getFindData(TypeKey _key) {
+        int count(0);
+        for(auto it = reg.begin(); it != reg.end(); it++) {
+            if(it->getKey() == _key) {
+                count++;
+                std::cout << "\t-Key " << it->getKey() << "\tValue " << it->getVolume() << std::endl;;
+            }
+        }
+        if(count == 0) {
+            std::cout << "Key \"" << _key << "\" is not found.\n"; 
+        }
     }
 
 };
 
-template<typename T1, typename T2>
-std::vector<Registry<T1, T2>> reg;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+*/
