@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project("33Homework_3" VERSION 1.0)
+project("33_Homework_3" VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
